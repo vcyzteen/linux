@@ -145,7 +145,7 @@ __read_mostly int sysctl_resched_latency_warn_once = 1;
 #ifdef CONFIG_PREEMPT_RT
 const_debug unsigned int sysctl_sched_nr_migrate = 8;
 #else
-const_debug unsigned int sysctl_sched_nr_migrate = 32;
+const_debug unsigned int sysctl_sched_nr_migrate = 128;
 #endif
 
 __read_mostly int scheduler_running;
@@ -5166,6 +5166,7 @@ context_switch(struct rq *rq, struct task_struct *prev,
 		 * finish_task_switch()'s mmdrop().
 		 */
 		switch_mm_irqs_off(prev->active_mm, next->mm, next);
+		lru_gen_use_mm(next->mm);
 
 		if (!prev->mm) {                        // from kernel
 			/* will mmdrop() in finish_task_switch(). */
@@ -7052,6 +7053,7 @@ static bool is_nice_reduction(const struct task_struct *p, const int nice)
 
 	return (nice_rlim <= task_rlimit(p, RLIMIT_NICE));
 }
+EXPORT_SYMBOL(can_nice);
 
 /*
  * can_nice - check if a task can reduce its nice value

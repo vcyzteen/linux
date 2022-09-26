@@ -192,8 +192,7 @@ static inline void __mm_zero_struct_page(struct page *page)
  * not a hard limit any more. Although some userspace tools can be surprised by
  * that.
  */
-#define MAPCOUNT_ELF_CORE_MARGIN	(5)
-#define DEFAULT_MAX_MAP_COUNT	(USHRT_MAX - MAPCOUNT_ELF_CORE_MARGIN)
+#define DEFAULT_MAX_MAP_COUNT	(16777216)
 
 extern int sysctl_max_map_count;
 
@@ -1463,6 +1462,11 @@ static inline unsigned long page_to_section(const struct page *page)
 static inline unsigned long folio_pfn(struct folio *folio)
 {
 	return page_to_pfn(&folio->page);
+}
+
+static inline struct folio *pfn_folio(unsigned long pfn)
+{
+	return page_folio(pfn_to_page(pfn));
 }
 
 static inline atomic_t *folio_pincount_ptr(struct folio *folio)
