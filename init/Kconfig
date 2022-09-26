@@ -112,8 +112,8 @@ config THREAD_INFO_IN_TASK
 
 menu "General setup"
 
-config ZENIFY
-	bool "A selection of patches from Zen/Liquorix kernel and additional tweaks for a better gaming experience"
+config NUSANTARA
+	bool "A selection of patches from Nusantara kernel and additional tweaks for a better gaming experience"
 	default y
 	help
 	  Tunes the kernel for responsiveness at the cost of throughput and power usage.
