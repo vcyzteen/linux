@@ -1,0 +1,15 @@
+environment:
+  GITHUB_TOKEN: ENCRYPTED[0d469bfaa3bb1ef87c54c04f107b67e1bd79e89107b42087e9362ec5eedc54f15817d8e3be5e893e27c306e51f312fc6]
+  TOKEN: ENCRYPTED[be2c84d834a1974e6c0c9b797097a06cfd988e05529a002d35f7f9c679c41967d201df47a80e2128cd1e93d47e3db193]
+
+inefficient_task:
+  container:
+    image: xealea/xea:01
+    platform: linux
+    cpu: 8
+    memory: 32G
+  build_script:
+    - export token=$TOKEN
+    - git clone --depth=1 https://github.com/xealea/linux.git
+    - cd linux
+    - curl -s https://raw.githubusercontent.com/xealea/builder-kernel-x86/nusantara/debpkg | bash
